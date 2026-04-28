@@ -4,100 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ExamPull</title>
-  <link rel="icon" href="https://ibb.co/XrMN3J0b.png" />
+  <link rel="icon" href="https://ibb.co.com/XrMN3J0b.png" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
+      margin: 0;
+      padding: 0;
       width: 100%;
       height: 100%;
       background-color: #eee;
+      overflow: hidden; /* Mencegah scroll ganda */
     }
-    #loading {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: sans-serif;
-      background: #eee;
-      z-index: 10;
+
+    .iframe-container {
+      width: 100%;
+      height: 100dvh; /* Menggunakan dvh agar pas di mobile browser */
+      overflow: hidden;
     }
-    #loading img {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      border-radius: 16px;
-      margin-bottom: 8px;
-    }
-    #loading h2 {
-      font-size: 22px;
-      color: #333;
-      margin-bottom: 4px;
-    }
-    #loading p { color: #555; font-size: 14px; }
-    #loading a {
-      margin-top: 20px;
-      padding: 10px 24px;
-      background: #4285f4;
-      color: white;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 15px;
-    }
+
     iframe {
       display: block;
       width: 100%;
-      height: 100dvh;
+      height: 100%;
       border: none;
     }
   </style>
 </head>
 <body>
-
-  <div id="loading">
-    <!-- Ganti URL di bawah dengan link logo kamu -->
-    <img src="LINK_LOGO_KAMU_DI_SINI" alt="ExamPull Logo" />
-    <h2>ExamPull</h2>
-    <p>Memuat aplikasi...</p>
-    <a id="fallback-link" href="https://script.google.com/macros/s/AKfycbyHXbrS-Q3iccLFGjwCOfrH7GldQbnQt-JVeD1BP2m6XqoQS53jnXs6jFap-ulHVcVd/exec">
-      Buka ExamPull
-    </a>
+  <div class="iframe-container">
+    <iframe
+      id="app"
+      src="https://script.google.com/macros/s/AKfycbyHXbrS-Q3iccLFGjwCOfrH7GldQbnQt-JVeD1BP2m6XqoQS53jnXs6jFap-ulHVcVd/exec"
+      scrolling="yes"
+      allowfullscreen="true"
+      webkitallowfullscreen="true"
+      mozallowfullscreen="true"
+      allow="fullscreen; camera; microphone; display-capture; geolocation;">
+    </iframe>
   </div>
-
-  <iframe
-    id="app"
-    src="https://script.google.com/macros/s/AKfycbyHXbrS-Q3iccLFGjwCOfrH7GldQbnQt-JVeD1BP2m6XqoQS53jnXs6jFap-ulHVcVd/exec"
-    scrolling="yes"
-    allow="fullscreen; camera; microphone; geolocation"
-    onload="iframeLoaded()"
-    onerror="iframeFailed()">
-  </iframe>
-
-  <script>
-    const APP_URL = "https://script.google.com/macros/s/AKfycbyHXbrS-Q3iccLFGjwCOfrH7GldQbnQt-JVeD1BP2m6XqoQS53jnXs6jFap-ulHVcVd/exec";
-
-    function iframeLoaded() {
-      document.getElementById("loading").style.display = "none";
-    }
-
-    function iframeFailed() {
-      window.location.replace(APP_URL);
-    }
-
-    setTimeout(function() {
-      const iframe = document.getElementById("app");
-      try {
-        const doc = iframe.contentDocument || iframe.contentWindow.document;
-        if (!doc || doc.body === null || doc.body.innerHTML === "") {
-          window.location.replace(APP_URL);
-        }
-      } catch(e) {
-        window.location.replace(APP_URL);
-      }
-    }, 5000);
-  </script>
-
 </body>
 </html>
